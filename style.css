@@ -1,0 +1,122 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Body Style */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #282c34;
+  color: #ffffff;
+}
+
+/* Container Style */
+#container {
+  width: 350px;
+  background-color: #1f1f1f;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Display Style */
+#display {
+  padding: 20px;
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 120px;
+  border-bottom: 2px solid #444;
+  position: relative;
+}
+
+#display p {
+  margin: 5px 0;
+  font-size: 20px;
+  color: #f1f1f1;
+}
+
+#inputDisplay {
+  font-size: 24px;
+  opacity: 0.8;
+}
+
+#resultDisplay {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#historyBtn {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#historyBtn img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+/* Button Container */
+#inputBtns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 20px;
+  background-color: #1f1f1f;
+}
+
+/* Button Style */
+button {
+  padding: 15px;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #444;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#divideBtn img {
+  height: 20px;
+  width: 20px;
+  filter: invert(1);
+}
+
+button:active {
+  background-color: #555;
+}
+
+#equalBtn {
+  background-color: #e67e22;
+  color: #fff;
+}
+
+#equalBtn:hover {
+  background-color: #cf6d17;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+#clear {
+  background-color: #e74c3c;
+}
+
+#clear:hover {
+  background-color: #c0392b;
+}
