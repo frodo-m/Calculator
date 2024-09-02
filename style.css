@@ -17,6 +17,10 @@ body {
 }
 
 /* Container Style */
+#container * {
+  user-select: none;
+}
+
 #container {
   width: 350px;
   background-color: #1f1f1f;
@@ -60,13 +64,20 @@ body {
   top: 20px;
   background-color: transparent;
   border: none;
+  border-radius: 50%;
+  padding: 0px;
   cursor: pointer;
+}
+
+#historyBtn:hover {
+  background-color: #1f1f1f4b;
 }
 
 #historyBtn img {
   width: 20px;
   height: 20px;
   filter: brightness(0) invert(1);
+  margin: 10px 10px 4px 10px;
 }
 
 /* Button Container */
