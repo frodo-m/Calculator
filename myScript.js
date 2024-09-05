@@ -1,23 +1,48 @@
 'use strict';
 
-let firstOperand = '';
-let secondOperand = '';
+const prevInputDisplay = document.querySelector('#prevInputDisplay');
+const currentInputDisplay = document.querySelector('#currentInputDisplay');
+
+const clearBtn = document.querySelector('#clearBtn');
+const decimalBtn = document.querySelector('#decimalBtn');
+const equalBtn = document.querySelector('#equalBtn');
+
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator')
+
+let currentOperand = '';
+let prevOperand = '';
 let operator = '';
+let shouldResetDisplay = false;
 
-const add = (a, b) => {
-  return a + b;
+const updateDisplay = () => {
+  if (operator) {
+    prevInputDisplay.textContent = `${prevOperand} ${operator}`;
+    currentInputDisplay.textContent = currentOperand;
+  } else {
+    prevInputDisplay.textContent = '';
+    currentInputDisplay.textContent = currentOperand || '0';
+  }
 };
 
-const subtract = (a, b) => {
-  return a - b;
+const resetDisplay = () => {
+  currentOperand = '';
+  prevOperand = '';
+  operator = '';
+  shouldResetDisplay = false;
+  updateDisplay();
 };
 
-const multiply = (a, b) => {
-  return a * b;
-};
+const add = (a, b) => a + b;
+
+const subtract = (a, b) => a - b;
+
+const multiply = (a, b) => a * b;
 
 const divide = (a, b) => {
-  return a / b;
+  if (b === 0) return 'Error';
+
+  return b / a;
 };
 
 const operate = (operator, a, b) => {
@@ -42,3 +67,54 @@ const operate = (operator, a, b) => {
   };
 };
 
+numbers.forEach((button) => {
+  button.addEventListener('click', () => {
+    const numberClicked = button.value;
+    if (shouldResetDisplay) {
+      currentOperand = numberClicked;
+      shouldResetDisplay = false;
+    } else {
+      currentOperand += numberClicked;
+    };
+    updateDisplay();
+  });
+});
+
+operators.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (currentOperand && prevOperand && operator) {
+      currentOperand = operate(operator, Number(currentOperand), Number(prevOperand)).toString();
+      prevOperand = '';
+    };
+    operator = button.value;
+    prevOperand = currentOperand;
+    currentOperand = '';
+    shouldResetDisplay = true;
+    updateDisplay();
+  });
+});
+
+equalBtn.addEventListener('click', () => {
+  if (currentOperand && operator && prevOperand) {
+    const result = operate(operator, Number(currentOperand), Number(prevOperand));
+    prevInputDisplay.textContent = `${prevOperand} ${operator} ${currentOperand} =`;
+    if (result !== null) {
+      currentOperand = result.toString();
+    } else {
+      currentOperand = 'Error';
+    }
+    prevOperand = '';
+    operator = '';
+    shouldResetDisplay = true;
+    updateDisplay();
+  };
+});
+
+clearBtn.addEventListener('click', resetDisplay);
+
+decimalBtn.addEventListener('click', () => {
+  if (!currentOperand.includes('.')) {
+    currentOperand += '.';
+    updateDisplay();
+  };
+});
