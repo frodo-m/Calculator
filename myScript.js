@@ -1,85 +1,44 @@
 'use strict';
 
-// input variables displayed on the inputDisplay
-let currentInput = '';
-let result = '';
+let firstOperand = '';
+let secondOperand = '';
+let operator = '';
 
-const inputDisplay = document.querySelector('#inputDisplay');
-const resultDisplay = document.querySelector('#resultDisplay');
+const add = (a, b) => {
+  return a + b;
+};
 
-const operators = document.querySelectorAll('.operator');
-const numbers = document.querySelectorAll('.number');
-const divideBtn = document.querySelector('#divideBtn');
-const clearBtn = document.querySelector('#clearBtn');
+const subtract = (a, b) => {
+  return a - b;
+};
 
-const updateDisplay = () => {
-  inputDisplay.textContent = currentInput;
-  resultDisplay.textContent = result;
-}
+const multiply = (a, b) => {
+  return a * b;
+};
 
-const isOperator = () => {
-  return ['+', '-', 'x', '/', '%'].includes(char);
-}
+const divide = (a, b) => {
+  return a / b;
+};
 
-const calculate = () => {
-  const tokens = current.Input.match(/(\d+\.?\d*)|([+\-x/%])/g);
-  if (!tokens) return;
+const operate = (operator, a, b) => {
+  if (operator === '') return;
 
-  let stack = [];
-  let currentOperator = null;
+  a = Number(a);
+  b = Number(b);
 
-  for (let token of tokens) {
-    if (isOperator(token)) {
-      currentOperator = token;
-    } else {
-      const number = parseFloat(token);
-      if (stack.length === 0) {
-        stack.push(number);
-      } else {
-        const prevNumber = stack.pop();
-        switch (currentOperator) {
-          case '+':
-            return stack.push(prevNumber + number);
-          case '-':
-            return stack.push(prevNumber - number);
-          case '*':
-            return stack.push(prevNumber * number);
-          case '/':
-            return stack.push(prevNumber / number);
-          case '%':
-            return stack.push(prevNumber % number);
-        }
-      }
-    }
-  }
+  if (isNaN(a) || isNaN(b)) return null;
 
-}
+  switch (operator) {
+    case '+':
+      return add(a, b);
+    case '-':
+      return subtract(a, b);
+    case '*':
+      return multiply(a, b);
+    case '/':
+      return divide(a, b);
+    default:
+      return null;
+  };
+};
 
-numbers.forEach((button) => {
-  button.addEventListener('click', () => {
-    let value = button.value;
-    currentInput += value;
-    updateDisplay();
-  });
-});
-
-operators.forEach((button) => {
-  button.addEventListener('click', () => {
-    let operator = button.textContent;
-    currentInput += operator;
-    updateDisplay();
-  });
-});
-
-divideBtn.addEventListener('click', () => {
-  currentInput += '/';
-});
-
-clearBtn.addEventListener('click', () => {
-  currentInput = '';
-  updateDisplay();
-})
-
-// Now I need to do:
-// 1- Calculations ? shall I present the resultDisplay from here?
-// 2- Prevent operators from outputing beside each other, instead, replace each other

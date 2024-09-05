@@ -1,51 +1,132 @@
-// Variables to store the current input and the previous result
-let currentInput = '';
-let previousResult = '';
+let firstOperand = '';
+let secondOperand = '';
+let currentOperation = null;
+let shouldResetDisplay = false;
 
-// Elements to display input and result
-const inputDisplay = document.getElementById('inputDisplay');
-const resultDisplay = document.getElementById('resultDisplay');
+// Select DOM elements (number buttons, operator buttons, etc.)
+const clearBtn = document.querySelector('#clearBtn');
+const equalBtun = document.querySelector('#equalBtn');
+const decimalBtn = document.querySelector('decimalBtn');
+const negativePositiveBtn = document.querySelector('negativePositiveBtn')
+const numbers = document.querySelectorAll('number');
+const operators = document.querySelectorAll('operator');
+const prevOpisplay = document.querySelector('prevOperationDisplay');
+const currentOpDisplay = document.querySelector('currentOperationDisplay');
 
-// Function to update the display
-function updateDisplay() {
-  inputDisplay.textContent = currentInput;
+numbers.forEach((button) => {
+  button.addEventListener('click')
+})
+
+// Add event listeners:
+//     Add keydown event listener to window
+//     Add click event listeners to equals, clear, delete, and point buttons
+//     Add click event listeners to all number buttons
+//     Add click event listeners to all operator buttons
+
+// Define function appendNumber(number):
+
+//     If currentOperationScreen is '0' or shouldResetScreen is true:
+//         Reset screen
+//     Append number to currentOperationScreen
+
+// Define function resetScreen():
+
+//     Clear currentOperationScreen
+//     Set shouldResetScreen to false
+
+// Define function clear():
+
+//     Reset currentOperationScreen to '0'
+//     Clear lastOperationScreen
+//     Reset firstOperand, secondOperand, and currentOperation
+
+// Define function appendPoint():
+
+//     If shouldResetScreen is true:
+//         Reset screen
+//     If currentOperationScreen is empty:
+//         Set currentOperationScreen to '0'
+//     If currentOperationScreen doesn't include '.':
+//         Append '.' to currentOperationScreen
+
+// Define function deleteNumber():
+const deleteNumber = () => {
+  currentOpDisplay.textContent = currentOpDisplay.textContent.toString().slice(0, -1);
 }
 
-// Function to handle button clicks
-function handleButtonClick(value) {
-  // Handle different button types
-  switch (value) {
-    case 'C': // Clear
-      currentInput = '';
-      previousResult = '';
-      resultDisplay.textContent = '';
-      break;
-    case '=': // Equals
-      try {
-        previousResult = eval(currentInput); // Evaluate the input
-        resultDisplay.textContent = previousResult; // Display the result
-        currentInput = ''; // Clear the current input
-      } catch {
-        resultDisplay.textContent = 'Error'; // Display error for invalid input
-      }
-      break;
-    case '()': // Parentheses
-      currentInput += '(';
-      break;
-    case '+/-': // Negate
-      currentInput = currentInput.startsWith('-') ? currentInput.slice(1) : '-' + currentInput;
-      break;
-    default: // Other inputs (numbers, operators)
-      currentInput += value;
-      break;
-  }
-  updateDisplay();
-}
+//     Remove last character from currentOperationScreen
 
-// Add event listeners to all buttons
-document.querySelectorAll('#inputBtns button').forEach(button => {
-  button.addEventListener('click', () => {
-    const value = button.textContent.trim(); // Get the button text
-    handleButtonClick(value); // Pass the value to the handler
-  });
-});
+// Define function setOperation(operator):
+
+//     If currentOperation is not null:
+//         Evaluate current operation
+//     Set firstOperand to currentOperationScreen value
+//     Set currentOperation to operator
+//     Update lastOperationScreen
+//     Set shouldResetScreen to true
+
+// Define function evaluate():
+
+//     If currentOperation is null or shouldResetScreen is true:
+//         Return
+//     If dividing by zero:
+//         Show alert and return
+//     Set secondOperand to currentOperationScreen value
+//     Calculate result using operate function
+//     Round result
+//     Update currentOperationScreen with result
+//     Update lastOperationScreen with full operation
+//     Reset currentOperation
+
+// Define function roundResult(number):
+//     Round number to 3 decimal places
+
+// Define function handleKeyboardInput(event):
+//     If key is number:
+//         Append number
+//     If key is '.':
+//         Append point
+//     If key is '=' or 'Enter':
+//         Evaluate
+//     If key is 'Backspace':
+//         Delete number
+//     If key is 'Escape':
+//         Clear
+//     If key is operator:
+//         Set operation (convert operator if necessary)
+
+// Define function convertOperator(keyboardOperator):
+const convertOperator = (keyboardOperator) => {
+  if (keyboardOperator === '+') return '+';
+  if (keyboardOperator === '-') return '−';
+  if (keyboardOperator === '*') return 'x';
+  if (keyboardOperator === '/') return '÷';
+}
+//     Convert keyboard operators to display operators
+
+const add = (a, b) => a + b;
+
+const subtract = (a, b) => a - b;
+
+const multiply = (a, b) => a * b;
+
+const divide = (a, b) => a / b;
+
+// Define function operate(operator, a, b):
+const operate = (operator, a, b) => {
+  a = Number(a);
+  b = Number(b);
+
+  switch (operator) {
+    case '+':
+      return add(a, b);
+    case '-':
+      return subtract(a, b);
+    case '*':
+      return multiply(a, b);
+    case '/':
+      return divide(a, b);
+    default:
+      return null;
+  };
+};
