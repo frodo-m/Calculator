@@ -95,7 +95,6 @@ const handleEqualsInput = () => {
   if (currentOperand === '' || prevOperand === '' || operator === '') return;
 
   const result = operate(operator, Number(prevOperand), Number(currentOperand));
-  prevInputDisplay.textContent = `${prevOperand} ${operator} ${currentOperand} =`;
   if (result !== null) {
     currentOperand = result.toString();
   } else {
